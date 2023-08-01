@@ -12,6 +12,7 @@ class processAPIResponse {
         $client = new Client();
         try {
             $response = $client->get($url);
+
             return $response->getBody()->getContents();
         } catch (\Exception $e) {
             // Handle any exceptions if necessary
@@ -37,9 +38,7 @@ class processAPIResponse {
         foreach ($decodedJson as $key => $value) {
             $stringPartsKey = str_split($key);
             sort($stringPartsKey);
-
             $this->processedResponse[implode($stringPartsKey)] = $this->checkDataTypeofValue($value);
-
         }
     }
 

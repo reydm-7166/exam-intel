@@ -17,13 +17,14 @@ class APIProcessorController extends Controller
         return Inertia('Result/Index');
     }
 
-    public function getAPI(Request $request): \Illuminate\Http\RedirectResponse
+    public function getAPI(Request $request)
     {
         // get the original response from the api
         $result_original = $this->processAPIResponse->getFrom3rdPartyAPI($request->input('query'));
 
         // transform the response according to instructions
         $result_transformed = $this->processAPIResponse->transformResponse($result_original);
+
         return redirect()->route('processor.index')
                         ->with('result_transformed', $result_transformed)
                         ->with('result_original', json_decode($result_original, true));
