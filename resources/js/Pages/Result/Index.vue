@@ -60,7 +60,7 @@
   let result_original = computed(() => page.props.flash.result_original)
   let result_transformed = computed(() => page.props.flash.result_transformed)
 
-console.log(result_original);
+
   let query = ref(localStorage.getItem('query'))
 
   const form = useForm({
