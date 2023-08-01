@@ -20,6 +20,7 @@
         <button type="submit" class="w-[100px] mx-auto my-2 bg-blue-300 hover:bg-blue-500 text-black main-font font-bold py-2 px-4 rounded">
           Send
         </button>
+
       </div>
       </form>
       <div id="result" class="h-fit min-h-[500px] mx-auto rounded-[10px] mt-[50px] w-[80%] h-[500px] flex justify-center items-start p-2 break-all">
@@ -40,7 +41,7 @@
             <pre
                 v-if="result_original"
                 class="whitespace-pre-wrap"
-                v-html="JSON.stringify(result_transformed, null, '\t')"></pre>
+                v-text="JSON.stringify(result_transformed, null, '\t')"></pre>
             <p v-else></p>
           </div>
       </div>
@@ -49,7 +50,7 @@
 
 <script setup>
   import { useForm } from '@inertiajs/vue3'
-  import { defineProps, ref, computed } from 'vue'
+  import { defineProps, ref, computed, watch } from 'vue'
   import { usePage } from '@inertiajs/vue3'
 
   let props = defineProps({

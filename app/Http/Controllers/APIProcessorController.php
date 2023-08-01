@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Services\processAPIResponse;
+use Illuminate\Http\RedirectResponse;
 use Inertia\ResponseFactory;
 use Illuminate\Http\Request;
 
@@ -17,7 +18,7 @@ class APIProcessorController extends Controller
         return Inertia('Result/Index');
     }
 
-    public function getAPI(Request $request)
+    public function getAPI(Request $request): RedirectResponse
     {
         // get the original response from the api
         $result_original = $this->processAPIResponse->getFrom3rdPartyAPI($request->input('query'));

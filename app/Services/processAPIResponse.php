@@ -22,6 +22,7 @@ class processAPIResponse {
 
     public function transformResponse($response): array
     {
+        $response = json_decode($response, true);
         $this->invertKey($response);
         $this->getTotalCount();
         return $this->processedResponse;
@@ -32,17 +33,16 @@ class processAPIResponse {
     {
         $this->processedResponse = array('objectCount' => count($this->processedResponse)) + $this->processedResponse;
     }
-    public function invertKey($jsonBody) : void
+    public function invertKey($decodedJson) : void
     {
-        $decodedJson = json_decode($jsonBody, true);
         foreach ($decodedJson as $key => $value) {
             $stringPartsKey = str_split($key);
             sort($stringPartsKey);
-            $this->processedResponse[implode($stringPartsKey)] = $this->checkDataTypeofValue($value);
+            $this->processedResponse[implode($stringPartsKey)] = $this->checkDataTypeofValue(implode($stringPartsKey), $value);
         }
     }
 
-    public function checkDataTypeofValue($value)
+    public function checkDataTypeofValue($invertedKey, $value)
     {
         $convertedValue = $value;
         if(is_string($value))
@@ -58,7 +58,9 @@ class processAPIResponse {
 
         if(is_array($value))
         {
-
+//            $this->invertKey(json_encode($value));
+//            $this->processedResponse[$invertedKey]
+//            $this->invertKey($value);
         }
         return $convertedValue;
     }
