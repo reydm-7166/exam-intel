@@ -1,14 +1,13 @@
 <template>
     <div id="container" class="bg-[#3AAFA9] pt-[30px] h-fit min-h-screen">
       <div class="my-[20px]">
-          <h1 class="text-white text-4xl text-center main-font">Query</h1>
+          <h1 class="text-black text-4xl text-center main-font">Query</h1>
       </div>
       <form
           @submit.prevent="submit"
       >
       <div id="input" class="w-[60%] mx-auto p-2 rounded-[10px] flex justify-center flex-col align-center">
-
-          <label for="message" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Input API</label>
+          <label for="message" class="block mb-2 text-sm font-medium text-gray-900 text-black">Input API</label>
           <textarea
               id="message"
               rows="4"
@@ -17,7 +16,7 @@
               class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
               placeholder="Write the URL"></textarea>
 
-        <button type="submit" class="w-[100px] mx-auto my-2 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+        <button type="submit" class="w-[100px] mx-auto my-2 bg-blue-500 hover:bg-blue-700 text-black main-font font-bold py-2 px-4 rounded">
           Query
         </button>
       </div>
@@ -61,7 +60,7 @@
   let result_original = computed(() => page.props.flash.result_original)
   let result_transformed = computed(() => page.props.flash.result_transformed)
 
-
+console.log(result_original);
   let query = ref(localStorage.getItem('query'))
 
   const form = useForm({

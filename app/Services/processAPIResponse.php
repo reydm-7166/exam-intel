@@ -6,11 +6,7 @@ use GuzzleHttp\Client;
 class processAPIResponse {
     public array $processedResponse;
 
-    public function transformResponse($response): array
-    {
-        $this->invertKey($response);
-        return $this->processedResponse;
-    }
+
     public function getFrom3rdPartyAPI($url)
     {
         $client = new Client();
@@ -23,17 +19,28 @@ class processAPIResponse {
         }
     }
 
-    public function invertKey($jsonBody)
+    public function transformResponse($response): array
+    {
+        $this->invertKey($response);
+        $this->getTotalCount();
+        return $this->processedResponse;
+    }
+
+
+    public function getTotalCount() : void
+    {
+        $this->processedResponse = array('objectCount' => count($this->processedResponse)) + $this->processedResponse;
+    }
+    public function invertKey($jsonBody) : void
     {
         $decodedJson = json_decode($jsonBody, true);
         foreach ($decodedJson as $key => $value) {
             $stringPartsKey = str_split($key);
             sort($stringPartsKey);
 
-            $this->processedResponse[implode($stringPartsKey)] = $this->checkDataTypeofValue($value);;
+            $this->processedResponse[implode($stringPartsKey)] = $this->checkDataTypeofValue($value);
+
         }
-        // If the input is not a valid JSON object, return the original input
-        return $jsonBody;
     }
 
     public function checkDataTypeofValue($value)
@@ -52,14 +59,8 @@ class processAPIResponse {
 
         if(is_array($value))
         {
-//            $decodedJson = $value;
-//            foreach ($decodedJson as $key => $value) {
-//                echo $key . " => " . $value . "\n";
-//            }
-//            // If the input is not a valid JSON object, return the original input
-//            dd($jsonBody);
-        }
 
+        }
         return $convertedValue;
     }
 }
